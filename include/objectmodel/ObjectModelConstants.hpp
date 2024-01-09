@@ -156,9 +156,8 @@ namespace objectmodel::constants
     static const std::string avahiServicePort = "port";
     static const std::string avahiServiceTextRecords = "textRecords";
 
-    /// All devices and their nodes are located under this node.
-    static const std::string deviceRoot = "DeviceSet";
-    static const std::string deviceRootPath = rootId + deviceRoot + idSeparator;
+    /// All devices and their nodes are located under this.
+    static const std::string deviceRootPath = "";
 
     /// All functionblocks are located under this node.
     static const std::string functionBlocks = "FB";
