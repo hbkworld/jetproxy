@@ -249,6 +249,9 @@ TEST_F(IntrospectionTest, NumericVariableTest)
     introspectionVariable.minValue = -10;
     introspectionVariable.maxValue = 10;
     introspectionVariable.suggestedValues = {1, 2, 3};
+    // from base classes
+    introspectionVariable.isReadOnly = false;
+    introspectionVariable.isVisible = true;
 
     NumericVariableValue<int32_t> anotherIntrospectionVariable;
     anotherIntrospectionVariable.defaultValue = 9;
@@ -267,6 +270,9 @@ TEST_F(IntrospectionTest, NumericVariableTest)
     for (unsigned int index = 0; index < introspectionVariable.suggestedValues.size(); ++index) {
         ASSERT_EQ(composition[objectmodel::constants::jsonSuggestedValuesMemberId][index], introspectionVariable.suggestedValues[index]);
     }
+
+    ASSERT_EQ(composition[objectmodel::constants::jsonIsReadOnlyMemberId], introspectionVariable.isReadOnly);
+    ASSERT_EQ(composition[objectmodel::constants::jsonIsVisibleMemberId], introspectionVariable.isVisible);
 
     static const std::string basePath = "/test/proxy";
     Introspection introspection(clientJetPeer.getAsyncPeer(), basePath);
