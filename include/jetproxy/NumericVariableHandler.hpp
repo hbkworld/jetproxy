@@ -43,6 +43,7 @@ struct NumericVariableValue : IntrospectionVariableValue<T>
 {
     std::optional<T> minValue;
     std::optional<T> maxValue;
+    std::vector<T> suggestedValues;
 
     Json::Value compose() const
     {
@@ -52,6 +53,12 @@ struct NumericVariableValue : IntrospectionVariableValue<T>
         }
         if(maxValue) {
             composition[objectmodel::constants::jsonMaxValueMemberId] = maxValue.value();
+        }
+        if(!suggestedValues.empty()) {
+            composition[objectmodel::constants::jsonSuggestedValuesMemberId] = Json::arrayValue;
+            for (const auto& iter : suggestedValues) {
+                composition[objectmodel::constants::jsonSuggestedValuesMemberId].append(iter);
+            }
         }
         return composition;
     }

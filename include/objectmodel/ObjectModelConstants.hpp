@@ -64,6 +64,7 @@ namespace objectmodel::constants
     static const std::string jsonEURangeMemberId =                  "EuRange";    // Introspection data
     static const std::string jsonMinValueMemberId =                 "MinValue";    // Introspection data
     static const std::string jsonMaxValueMemberId =                 "MaxValue";    // Introspection data
+    static const std::string jsonSuggestedValuesMemberId =          "SuggestedValues";    // Introspection data
 
     // For the future perhaps needed, when dynamic connection are in focus more again
     static const std::string jsonDestinationsMemberId =             "_destinations";
