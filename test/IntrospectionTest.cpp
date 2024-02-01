@@ -215,7 +215,6 @@ TEST_F(IntrospectionTest, AnalogVariableTest)
     waitForPath(introspection.getPath(), 4);
     stateInformation = s_states[introspection.getPath()];
     composition = stateInformation.value[OtherVariableName];
-    std::cout << composition.toStyledString() << std::endl;
 
     ASSERT_EQ(composition[objectmodel::constants::jsonEURangeMemberId][objectmodel::constants::jsonMinValueMemberId].asDouble(), anotherAnalogVariable.euRange->minValue);
     ASSERT_EQ(composition[objectmodel::constants::jsonEURangeMemberId][objectmodel::constants::jsonMaxValueMemberId].asDouble(), anotherAnalogVariable.euRange->maxValue);
@@ -249,6 +248,7 @@ TEST_F(IntrospectionTest, NumericVariableTest)
     introspectionVariable.defaultValue = 42;
     introspectionVariable.minValue = -10;
     introspectionVariable.maxValue = 10;
+    introspectionVariable.suggestedValues = {1, 2, 3};
 
     NumericVariableValue<int32_t> anotherIntrospectionVariable;
     anotherIntrospectionVariable.defaultValue = 9;
@@ -262,6 +262,11 @@ TEST_F(IntrospectionTest, NumericVariableTest)
     ASSERT_EQ(composition[objectmodel::constants::jsonDefaultValueMemberId], introspectionVariable.defaultValue);
     ASSERT_EQ(composition[objectmodel::constants::jsonMaxValueMemberId], introspectionVariable.maxValue);
     ASSERT_EQ(composition[objectmodel::constants::jsonMinValueMemberId], introspectionVariable.minValue);
+
+    ASSERT_EQ(composition[objectmodel::constants::jsonSuggestedValuesMemberId].size(), introspectionVariable.suggestedValues.size());
+    for (unsigned int index = 0; index < introspectionVariable.suggestedValues.size(); ++index) {
+        ASSERT_EQ(composition[objectmodel::constants::jsonSuggestedValuesMemberId][index], introspectionVariable.suggestedValues[index]);
+    }
 
     static const std::string basePath = "/test/proxy";
     Introspection introspection(clientJetPeer.getAsyncPeer(), basePath);
