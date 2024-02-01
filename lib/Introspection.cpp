@@ -149,6 +149,12 @@ Json::Value Introspection::compose() const
         composition[nodeName] = iter.second.composeIntrospection();
     }
 
+    for (const auto& iter : m_introspectionVariableHandlers) {
+        const std::string &nodeName = iter.first;
+        composition[nodeName] = iter.second->composeIntrospection();
+    }
+
+    // explicitely values overwrite values set by other calls
     for (const auto& iter : m_entries) {
         for (const auto& typeIter : iter.second) {
             const std::string &nodeName = iter.first;
@@ -158,10 +164,6 @@ Json::Value Introspection::compose() const
         }
     }
 
-    for (const auto& iter : m_introspectionVariableHandlers) {
-        const std::string &nodeName = iter.first;
-        composition[nodeName] = iter.second->composeIntrospection();
-    }
     return composition;
 }
 

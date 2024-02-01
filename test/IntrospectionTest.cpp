@@ -271,6 +271,7 @@ TEST_F(IntrospectionTest, NumericVariableTest)
     static const std::string basePath = "/test/proxy";
     Introspection introspection(clientJetPeer.getAsyncPeer(), basePath);
     introspection.setIntrospectionVariable("theVariable", numberVariableHandler);
+    introspection.insertNodeIntrospection("theVariable", objectmodel::constants::jsonDefaultValueMemberId, 5);
     introspection.setIntrospectionVariable("theOtherVariable", anotherNumberVariableHandler);
 }
 }
