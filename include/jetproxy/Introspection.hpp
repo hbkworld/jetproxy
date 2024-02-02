@@ -70,6 +70,7 @@ public:
         return m_introspectionPath;
     }
     
+    /// Will overwrite values set already by other calls!
     /// \param introspectionPropertyName Name of the property within the jet object (This equals the node in OPC-UA)
     void insertNodeIntrospection(const std::string& nodeName, const std::string& introspectionPropertyName, const Json::Value& introspectionDetails);
     

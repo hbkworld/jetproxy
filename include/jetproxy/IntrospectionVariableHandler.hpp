@@ -40,10 +40,12 @@ template <class T>
 /// All members are optionals, those that are not set will not be composed!
 struct IntrospectionVariableValue
 {
-    std::optional<std::uint32_t> numberInList;
+    std::optional<std::uint32_t> numberInList; // from DaqBaseVariableType
     std::optional<std::string> coercionExpression;
     std::optional<std::string> validationExpression;
     std::optional<T> defaultValue;
+    std::optional<bool> isReadOnly;
+    std::optional<bool> isVisible; // from DaqBaseVariableType
     std::optional<UnitInformation> unit;
 
     /// @code
@@ -68,6 +70,8 @@ struct IntrospectionVariableValue
         Json::Value composition;
         if (numberInList) composition[objectmodel::constants::jsonNumberInListMemberId] = numberInList.value();
         if (defaultValue) composition[objectmodel::constants::jsonDefaultValueMemberId] = defaultValue.value();
+        if (isReadOnly) composition[objectmodel::constants::jsonIsReadOnlyMemberId] = isReadOnly.value();
+        if (isVisible) composition[objectmodel::constants::jsonIsVisibleMemberId] = isVisible.value();
         if (coercionExpression) composition[objectmodel::constants::jsonCoercionExpressionMemberId] = coercionExpression.value();
         if (validationExpression) composition[objectmodel::constants::jsonValidationExpressionMemberId] = validationExpression.value();
         if (unit) {
