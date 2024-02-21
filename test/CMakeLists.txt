@@ -5,25 +5,19 @@ set(gtest_REQUIREDVERSION "1.13.0")
   find_package(GTest ${gtest_REQUIREDVERSION} )
 
   if(GTest_FOUND)
-    message(STATUS "Found GTest: ${GTest_VERSION} ${GTest_CONFIG}")
+    message(STATUS "Found GTest: ${GTest_VERSION} ${gtest_CONFIG}")
   else()
+    message(STATUS "Fetching GTest ${gtest_REQUIREDVERSION}...")
     include(FetchContent)
     set(gtest_WITH_POST_BUILD_UNITTEST OFF)
     set(gtest_WITH_TESTS OFF)
+    set(INSTALL_GTEST OFF)
+    set(BUILD_GMOCK OFF)
     FetchContent_Declare(
-      GTest
+      gtest
       URL https://github.com/google/googletest/archive/refs/tags/v${gtest_REQUIREDVERSION}.zip
     )
-    FetchContent_GetProperties(GTest)
-    if(NOT gtest_POPULATED)
-      message(STATUS "Fetching GTest ${gtest_REQUIREDVERSION}...")
-      FetchContent_Populate(GTest)
-      add_subdirectory(${gtest_SOURCE_DIR} ${gtest_BINARY_DIR})
-  endif()
-    link_directories("${gtest_BINARY_DIR}")
-    include_directories("${gtest_SOURCE_DIR}")
-    add_library(GTest::GTest ALIAS gtest)
-    add_library(GTest::Main ALIAS gtest_main)
+    FetchContent_GetProperties(gtest)
   endif()
 
 
