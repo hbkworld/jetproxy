@@ -37,7 +37,7 @@ else(hbk_FOUND)
   FetchContent_MakeAvailable(hbk)
 endif(hbk_FOUND)
 
-set(jetpeer_REQUIREDVERSION "3.0.2")
+set(jetpeer_REQUIREDVERSION "3.0.3")
 find_package(jetpeerasync ${jetpeer_REQUIREDVERSION} QUIET)
 find_package(jetpeer ${jetpeer_REQUIREDVERSION} QUIET)
 if(jetpeer_FOUND AND jetpeerasync_FOUND)
