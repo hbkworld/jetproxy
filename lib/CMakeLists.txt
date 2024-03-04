@@ -49,7 +49,7 @@ add_library(${PROJECT_NAME}
 
 add_library(hbk::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC jsoncpp_lib jet::jetpeer jet::jetpeerasync)
+target_link_libraries(${PROJECT_NAME} PUBLIC jsoncpp_lib jet::jetpeerasync)
 
 set_target_properties(
   ${PROJECT_NAME}
