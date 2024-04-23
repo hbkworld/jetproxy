@@ -5,6 +5,8 @@ project(jetproxy VERSION 2.0.4 LANGUAGES CXX)
 option(JETPROXY_POST_BUILD_UNITTEST "Automatically run unit-tests as a post build step" OFF)
 option(JETPROXY_EXAMPLES            "Build examples of usages"                          OFF)
 
+find_package(Threads)
+
 include(FetchContent)
 
 set(jsoncpp_REQUIREDVERSION "1.9.3")
