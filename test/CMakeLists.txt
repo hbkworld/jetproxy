@@ -6,19 +6,19 @@ find_package(GTest ${gtest_REQUIREDVERSION} )
 find_package(Threads)
 
 if(GTest_FOUND)
-message(STATUS "Found GTest: ${GTest_VERSION} ${gtest_CONFIG}")
+  message(STATUS "Found GTest: ${GTest_VERSION} ${gtest_CONFIG}")
 else()
-message(STATUS "Fetching GTest ${gtest_REQUIREDVERSION}...")
-include(FetchContent)
-set(gtest_WITH_POST_BUILD_UNITTEST OFF)
-set(gtest_WITH_TESTS OFF)
-set(INSTALL_GTEST OFF)
-set(BUILD_GMOCK OFF)
-FetchContent_Declare(
-  gtest
-  URL https://github.com/google/googletest/archive/refs/tags/v${gtest_REQUIREDVERSION}.zip
-)
-FetchContent_GetProperties(gtest)
+  message(STATUS "Fetching GTest ${gtest_REQUIREDVERSION}...")
+  include(FetchContent)
+  set(gtest_WITH_POST_BUILD_UNITTEST OFF)
+  set(gtest_WITH_TESTS OFF)
+  set(INSTALL_GTEST OFF)
+  set(BUILD_GMOCK OFF)
+  FetchContent_Declare(
+    gtest
+    URL https://github.com/google/googletest/archive/refs/tags/v${gtest_REQUIREDVERSION}.zip
+  )
+  FetchContent_GetProperties(gtest)
 endif()
 
 
