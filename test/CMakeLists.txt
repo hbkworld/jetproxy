@@ -1,24 +1,23 @@
 cmake_minimum_required(VERSION 3.14)
 
+find_package(Threads)
+
 set(gtest_REQUIREDVERSION "1.13.0")
 
 find_package(GTest ${gtest_REQUIREDVERSION} )
-find_package(Threads)
-
-if(GTest_FOUND)
-  message(STATUS "Found GTest: ${GTest_VERSION} ${gtest_CONFIG}")
+if(gtest_FOUND)
+  message(STATUS "Found GTest: ${gtest_VERSION} ${gtest_CONFIG}")
 else()
   message(STATUS "Fetching GTest ${gtest_REQUIREDVERSION}...")
   include(FetchContent)
   set(gtest_WITH_POST_BUILD_UNITTEST OFF)
   set(gtest_WITH_TESTS OFF)
   set(INSTALL_GTEST OFF)
-  set(BUILD_GMOCK OFF)
   FetchContent_Declare(
     gtest
     URL https://github.com/google/googletest/archive/refs/tags/v${gtest_REQUIREDVERSION}.zip
   )
-  FetchContent_GetProperties(gtest)
+  FetchContent_MakeAvailable(gtest)
 endif()
 
 
@@ -132,7 +131,7 @@ foreach(tgt ${targets})
       jet::jetpeer
       jsoncpp_lib
       hbk::hbk
-      GTest::GTest GTest::Main
+      GTest::gtest GTest::gtest_main
     )
 
     set_target_properties(${tgt} PROPERTIES
