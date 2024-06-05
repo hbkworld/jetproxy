@@ -13,6 +13,7 @@ else()
   set(gtest_WITH_POST_BUILD_UNITTEST OFF)
   set(gtest_WITH_TESTS OFF)
   set(INSTALL_GTEST OFF)
+  set(BUILD_GMOCK OFF)
   FetchContent_Declare(
     gtest
     URL https://github.com/google/googletest/archive/refs/tags/v${gtest_REQUIREDVERSION}.zip
