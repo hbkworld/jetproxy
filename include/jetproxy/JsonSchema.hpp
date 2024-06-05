@@ -24,10 +24,10 @@
 
 #pragma once
 
+#include <cstddef>
+#include <cstdint>
 #include <string>
 #include "json/value.h"
-
-//#include "EnumValueHandler.hpp"
 
 #include "objectmodel/ObjectModelConstants.hpp"
 
@@ -75,7 +75,7 @@ public:
     /// The type should implement a getTypeString template, that returns the name of the type
     /// For example getTypeString<uint32_t>() returns uint32
     template<typename T>
-    static Json::Value createJsonSchemaType(std::string description, bool mandatory = true)
+    static Json::Value createJsonSchemaType(const std::string& description, bool mandatory = true)
     {
         Json::Value type;
         type[DESCRIPTION] = description;
@@ -86,7 +86,7 @@ public:
     
     //static Json::Value createListType(std::string description, bool mandatory = true);
 
-    static Json::Value createCustomizedType(std::string customizedTypeName, std::string description, bool mandatory = true)
+    static Json::Value createCustomizedType(const std::string& customizedTypeName, const std::string& description, bool mandatory = true)
     {
         Json::Value type;
         type[DESCRIPTION] = description;
@@ -96,7 +96,7 @@ public:
     }
 
     template<typename T>
-    static Json::Value createJsonArrayType(std::string description, std::size_t size, bool mandatory = true)
+    static Json::Value createJsonArrayType(const std::string& description, std::size_t size, bool mandatory = true)
     {
         Json::Value type;
         type[DESCRIPTION] = description;
@@ -109,7 +109,7 @@ public:
     }
     
     template<typename T>
-    static Json::Value createJsonVectorType(std::string description, bool mandatory = true)
+    static Json::Value createJsonVectorType(const std::string& description, bool mandatory = true)
     {
         Json::Value type;
         type[DESCRIPTION] = description;
