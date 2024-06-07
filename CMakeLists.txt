@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(jetproxy VERSION 2.0.4 LANGUAGES CXX)
+project(jetproxy VERSION 2.0.6 LANGUAGES CXX)
 
 option(JETPROXY_POST_BUILD_UNITTEST "Automatically run unit-tests as a post build step" OFF)
 option(JETPROXY_EXAMPLES            "Build examples of usages"                          OFF)
