@@ -33,7 +33,7 @@ namespace hbk::jetproxy
 {
 	StringEnum::StringEnum(const Members& enumMembers)
 		: m_enumMembers(enumMembers)
-		, m_iter(m_enumMembers.begin())
+		, m_iter(m_enumMembers.cbegin())
 	{
 	}
 	
@@ -63,8 +63,8 @@ namespace hbk::jetproxy
 	int StringEnum::setString(const std::string& string)
 	{
 		auto lambda = [string](std::pair<int, const std::string&> element) { return element.second == string; };
-		const auto iter = std::find_if(m_enumMembers.begin(), m_enumMembers.end(), lambda);
-		if (iter == m_enumMembers.end()) {
+		const auto iter = std::find_if(m_enumMembers.cbegin(), m_enumMembers.cend(), lambda);
+		if (iter == m_enumMembers.cend()) {
 			return -1;
 		}
 		if (m_iter != iter) {

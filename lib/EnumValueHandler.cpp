@@ -38,7 +38,7 @@ EnumValueHandler::EnumValueHandler(const EnumValues &enumValues)
     if (m_enumValues.empty()) {
         throw std::runtime_error("MultiStateValueDiscreteType may not be constructed with empty enum values!");
     }
-    m_value = m_enumValues.begin()->first;
+    m_value = m_enumValues.cbegin()->first;
 }
 
 EnumValueHandler::EnumValueHandler(EnumValues &&enumValues)
@@ -47,7 +47,7 @@ EnumValueHandler::EnumValueHandler(EnumValues &&enumValues)
     if (m_enumValues.empty()) {
         throw std::runtime_error("MultiStateValueDiscreteType may not be constructed with empty enum values!");
     }
-    m_value = m_enumValues.begin()->first;
+    m_value = m_enumValues.cbegin()->first;
 }
 
 void EnumValueHandler::setEnumValues(const EnumValues &enumValues)
@@ -109,7 +109,7 @@ void EnumValueHandler::updateValue()
     // see whether the current value is available in the new choices
     if (m_enumValues.find(m_value)==m_enumValues.end()) {
         // not available, use value of first choice then first
-        m_value = m_enumValues.begin()->first;
+        m_value = m_enumValues.cbegin()->first;
     }
 }
 } // namespace hbk::jetproxy

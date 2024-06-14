@@ -38,7 +38,7 @@ SelectionValueHandler::SelectionValueHandler(const SelectionValues &selectionVal
     if (m_selectionValues.empty()) {
         throw std::runtime_error("Selection values type may not be constructed with empty selection values!");
     }
-    m_key = m_selectionValues.begin()->first;
+    m_key = m_selectionValues.cbegin()->first;
 }
 
 SelectionValueHandler::SelectionValueHandler(SelectionValues &&selectionValues)
@@ -47,7 +47,7 @@ SelectionValueHandler::SelectionValueHandler(SelectionValues &&selectionValues)
     if (m_selectionValues.empty()) {
         throw std::runtime_error("Selection values type may not be constructed with empty selection values!");
     }
-    m_key = m_selectionValues.begin()->first;
+    m_key = m_selectionValues.cbegin()->first;
 }
 
 void SelectionValueHandler::setSelectionValues(const SelectionValues &selectionValues)
@@ -126,7 +126,7 @@ void SelectionValueHandler::updateValue()
     // see whether the current value is available in the new entries
     if (m_selectionValues.find(m_key)==m_selectionValues.end()) {
         // not available, use value of first choice then first
-        m_key = m_selectionValues.begin()->first;
+        m_key = m_selectionValues.cbegin()->first;
     }
 }
 } // namespace hbk::jetproxy
