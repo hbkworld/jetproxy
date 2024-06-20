@@ -23,6 +23,10 @@
 // THE SOFTWARE.
 
 #include <stdexcept>
+#include <cstdint>
+#include <utility>
+
+#include "json/value.h"
 
 #include "objectmodel/ObjectModelConstants.hpp"
 

@@ -27,6 +27,8 @@
 #include <string>
 #include <syslog.h>
 
+#include "json/value.h"
+
 #include "hbk/sys/eventloop.h"
 #include "hbk/sys/timer.h"
 #include "jetproxy/DelayedSaver.hpp"

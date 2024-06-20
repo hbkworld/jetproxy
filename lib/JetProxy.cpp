@@ -22,6 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <filesystem>
@@ -33,6 +34,8 @@
 
 #include "json/value.h"
 #include "json/writer.h"
+
+#include "jet/peerasync.hpp"
 
 #include "jetproxy/JetProxy.hpp"
 #include "objectmodel/ObjectModelConstants.hpp"
@@ -141,14 +144,14 @@ namespace hbk::jetproxy
     {
         Json::Value composition;
 
-        for (const auto& it : m_referencesByTarget) {
-            for (const auto & element : it.second) {
-                composition[objModel::jsonReferenceByTargetMemberId][it.first].append(element);
+        for (const auto& referencesIter : m_referencesByTarget) {
+            for (const auto & element : referencesIter.second) {
+                composition[objModel::jsonReferenceByTargetMemberId][referencesIter.first].append(element);
             }
         }
-        for (const auto& it : m_referencesBySource) {
-            for (const auto & element : it.second) {
-                composition[objModel::jsonReferenceBySourceMemberId][it.first].append(element);
+        for (const auto& referencesIter : m_referencesBySource) {
+            for (const auto & element : referencesIter.second) {
+                composition[objModel::jsonReferenceBySourceMemberId][referencesIter.first].append(element);
             }
         }
         composition[objectmodel::constants::jsonFixedMemberId] = m_fixed;
@@ -237,13 +240,13 @@ namespace hbk::jetproxy
 
     int JetProxy::restoreAllDefaults()
     {
-        for(auto& it : m_jetProxies) {
+        for(auto& proxiesIter : m_jetProxies) {
             try {
-                it.second->restoreDefaults();
+                proxiesIter.second->restoreDefaults();
             } catch(const std::exception& e) {
-                std::cerr << "could not restore defaults for " << it.first << ": " << e.what() << std::endl;
+                std::cerr << "could not restore defaults for " << proxiesIter.first << ": " << e.what() << std::endl;
             } catch(...) {
-                std::cerr << "could not restore defaults for " << it.first << std::endl;
+                std::cerr << "could not restore defaults for " << proxiesIter.first << std::endl;
             }
         }
         return 0;
