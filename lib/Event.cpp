@@ -43,7 +43,7 @@ namespace hbk::jetproxy {
                  const std::string& message,
                  Event::Severity severity) :
         m_jetPeer(peer),
-        m_path(objectmodel::constants::absoluteNotificationsId + "/" + subSystem + "/" + type),
+        m_path(objectmodel::constants::absoluteNotificationsId + '/' + subSystem + '/' + type),
         m_subSystem(subSystem),
         m_type(type),
         m_sourceNode(sourceNode),

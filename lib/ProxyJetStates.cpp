@@ -30,7 +30,9 @@
 #include "jet/defines.h"
 #include "jet/peerasync.hpp"
 
+#include "jetproxy/AnalogVariableHandler.hpp"
 #include "jetproxy/EnumValueHandler.hpp"
+#include "jetproxy/Method.hpp"
 #include "jetproxy/ProxyJetStates.hpp"
 #include "jetproxy/SelectionValueHandler.hpp"
 

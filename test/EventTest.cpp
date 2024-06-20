@@ -172,7 +172,7 @@ namespace hbk::jetproxy
             waitForPath(event.getPath());
             auto result = syncPeer.get(matchMethod);
             ASSERT_GT(result["result"].size(), 0);
-            ASSERT_EQ(result["result"][0]["path"], "/notifications/" + subsystem + "/" + type);
+            ASSERT_EQ(result["result"][0]["path"], "/notifications/" + subsystem + '/' + type);
             ASSERT_EQ(result["result"][0]["value"][objc::jsonTypeMemberId], type);
             ASSERT_EQ(result["result"][0]["value"]["sourceNode"], sourceNode);
             ASSERT_EQ(result["result"][0]["value"]["sourceName"], sourceName);
@@ -194,7 +194,7 @@ namespace hbk::jetproxy
             waitForPath(event.getPath());
             auto result = syncPeer.get(matchMethod);
             ASSERT_GT(result["result"].size(), 0);
-            ASSERT_EQ(result["result"][0]["path"], "/notifications/" + subsystem + "/" + type);
+            ASSERT_EQ(result["result"][0]["path"], "/notifications/" + subsystem + '/' + type);
             ASSERT_EQ(result["result"][0]["value"][objc::jsonTypeMemberId], type);
             ASSERT_EQ(result["result"][0]["value"]["sourceNode"], sourceNode);
             ASSERT_EQ(result["result"][0]["value"]["sourceName"], sourceName);
