@@ -22,6 +22,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <string>
+
+#include "json/value.h"
+
+#include "hbk/jsonrpc/jsonrpc_defines.h"
 #include "jetproxy/Error.hpp"
 
 namespace hbk::jetproxy

@@ -22,15 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <chrono>
 #include <vector>
+#include <string>
 #include <syslog.h>
 
 #include "hbk/sys/eventloop.h"
 #include "hbk/sys/timer.h"
 #include "jetproxy/DelayedSaver.hpp"
 #include "jetproxy/JetProxy.hpp"
+#include "jet/defines.h"
 #include "jet/peerasync.hpp"
 
+#include "objectmodel/ObjectModelConstants.hpp"
 
 namespace hbk::jetproxy {
     
@@ -81,10 +85,10 @@ namespace hbk::jetproxy {
                 return;
             }
             try {
-                std::string event = notification[hbk::jet::EVENT].asString();
+                const std::string event = notification[hbk::jet::EVENT].asString();
                 if (event != hbk::jet::REMOVE) {
                     // arm delayed saving for changes on persistent elements only
-                    bool persistent = notification[hbk::jet::VALUE][objectmodel::constants::jsonPersistentMemberId].asBool();
+                    const bool persistent = notification[hbk::jet::VALUE][objectmodel::constants::jsonPersistentMemberId].asBool();
                     if (!persistent) {
                         return;
                     }

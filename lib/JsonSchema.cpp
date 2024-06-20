@@ -22,7 +22,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <cstdint>
+#include <string>
+
+#include "json/value.h"
+
 #include "jetproxy/JsonSchema.hpp"
+#include "jetproxy/StringEnum.hpp"
 
 
 namespace hbk::jetproxy

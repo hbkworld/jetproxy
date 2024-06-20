@@ -25,7 +25,11 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-#include <cctype>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <unistd.h>
+#include <utility>
 
 #include "json/value.h"
 #include "json/writer.h"
@@ -193,7 +197,7 @@ namespace hbk::jetproxy
     int JetProxy::saveAllToFile(const std::string& fileName)
     {
         // we compose to a temporary file and move to the real destination when finished.
-        std::string tmpName = fileName + ".tmp";
+        const std::string tmpName = fileName + ".tmp";
         std::ofstream tmpFile;
         tmpFile.open(tmpName);
         
@@ -280,8 +284,8 @@ namespace hbk::jetproxy
 
         for(Json::Value::iterator it = config.begin(); it !=config.end(); ++it)
         {
-            std::string jetPath = it.key().asString();
-            Json::Value jsonConfig = (*it);
+            const std::string jetPath = it.key().asString();
+            const Json::Value& jsonConfig = (*it);
             const auto& jetIter = m_jetProxies.find(jetPath);
             if (jetIter==m_jetProxies.end()) {
                 std::cout << "could not restore " << jetPath << ": fbproxy does not exist\n";
