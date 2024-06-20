@@ -36,7 +36,7 @@ Introspection::Introspection(hbk::jet::PeerAsync &peer, const std::string &jetPr
 {
     m_introspectionPath = objectmodel::constants::introspectionPath;
     /// \warning jetProxyPath may start with '/' => remove it from prefix
-    if (jetProxyPath[0] == '/') {
+    if (jetProxyPath.front() == '/') {
         m_introspectionPath.pop_back();
     }
     m_introspectionPath += jetProxyPath;
