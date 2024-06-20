@@ -258,12 +258,13 @@ namespace hbk::jetproxy
 
         /// jet path is the key
         using JetProxies = std::unordered_map<std::string, JetProxy*>;
+        using References = std::vector<std::string>;
 
         /// Reference id is the key. "this" is source of the reference, value is the target of the reference
-        std::map<std::string, std::vector<std::string>> m_referencesByTarget;
+        std::map<std::string, References> m_referencesByTarget;
 
         /// Reference id is the key. value is the source of the reference, "this" is target of the reference
-        std::map<std::string, std::vector<std::string>> m_referencesBySource;
+        std::map<std::string, References> m_referencesBySource;
 
         /// Collection of all existing jet proxies.
         /// It is used for:

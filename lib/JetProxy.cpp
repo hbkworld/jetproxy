@@ -72,7 +72,7 @@ namespace hbk::jetproxy
 
     void JetProxy::addReferenceByTarget(const std::string& referenceId, const std::string& targetId)
     {
-        std::vector<std::string> typeReferences = m_referencesByTarget[referenceId];
+        References typeReferences = m_referencesByTarget[referenceId];
 
         for (const auto &element : typeReferences) {
             if (element == targetId) {
@@ -86,7 +86,7 @@ namespace hbk::jetproxy
 
     void JetProxy::addReferenceBySource(const std::string &referenceId, const std::string &sourceId)
     {
-        std::vector<std::string> typeReferences = m_referencesBySource[referenceId];
+        References typeReferences = m_referencesBySource[referenceId];
 
         for (const auto &element : typeReferences) {
             if (element == sourceId) {
