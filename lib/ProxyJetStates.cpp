@@ -22,22 +22,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <memory>
 #include <string>
+#include <utility>
 
 #include "json/value.h"
 #include "jet/defines.h"
 #include "jet/peerasync.hpp"
 
+#include "jetproxy/AnalogVariableHandler.hpp"
+#include "jetproxy/EnumValueHandler.hpp"
+#include "jetproxy/Method.hpp"
 #include "jetproxy/ProxyJetStates.hpp"
+#include "jetproxy/SelectionValueHandler.hpp"
 
 namespace hbk::jetproxy
 {
-    ProxyJetStates::ProxyJetStates(hbk::jet::PeerAsync& peer, const std::string& path, const Json::Value& initialValue, const hbk::jet::stateCallback_t& Cb)
+    ProxyJetStates::ProxyJetStates(hbk::jet::PeerAsync& peer, const std::string& path, const Json::Value& initialValue, const hbk::jet::stateCallback_t& callback)
         : m_jetPeer(peer)
         , m_path(path)
         , m_introspection(peer, path)
     {
-        m_jetPeer.addStateAsync(m_path, initialValue, hbk::jet::responseCallback_t(), Cb);
+        m_jetPeer.addStateAsync(m_path, initialValue, hbk::jet::responseCallback_t(), callback);
     }
 
     ProxyJetStates::~ProxyJetStates()
@@ -49,14 +55,14 @@ namespace hbk::jetproxy
     void ProxyJetStates::addMethod(const std::string& methodName, const hbk::jet::methodCallback_t& callback, const Method::MethodDescription& description)
     {
         // create the method in place
-        auto mthd = std::make_unique < Method > (m_jetPeer, m_path + "/" + methodName, callback, description);
+        auto mthd = std::make_unique < Method > (m_jetPeer, m_path + '/' + methodName, callback, description);
         m_methods.emplace_back(std::move(mthd));
     }
 
     void ProxyJetStates::addMethod(const std::string& methodName, const hbk::jet::methodCallback_t& callback)
     {
         // create the method in place
-        auto mthd = std::make_unique < Method > (m_jetPeer, m_path + "/" + methodName, callback);
+        auto mthd = std::make_unique < Method > (m_jetPeer, m_path + '/' + methodName, callback);
         m_methods.emplace_back(std::move(mthd));
     }
 

@@ -22,9 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "jetproxy/Event.hpp"
+#include <string>
+
+#include "hbk/jsonrpc/jsonrpc_defines.h"
+
 #include <jet/defines.h>
 #include <jet/peerasync.hpp>
+
+#include "jetproxy/JsonSchema.hpp"
+#include "jetproxy/Event.hpp"
 
 #include "objectmodel/ObjectModelConstants.hpp"
 
@@ -37,7 +43,7 @@ namespace hbk::jetproxy {
                  const std::string& message,
                  Event::Severity severity) :
         m_jetPeer(peer),
-        m_path(objectmodel::constants::absoluteNotificationsId + "/" + subSystem + "/" + type),
+        m_path(objectmodel::constants::absoluteNotificationsId + '/' + subSystem + '/' + type),
         m_subSystem(subSystem),
         m_type(type),
         m_sourceNode(sourceNode),

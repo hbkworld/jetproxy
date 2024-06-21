@@ -22,13 +22,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <iostream>
-#include <thread>
 #include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <thread>
 
 #include <sys/poll.h>
 
 #include "hbk/sys/eventloop.h"
+#include "jet/defines.h"
 #include "jet/peerasync.hpp"
 #include "jetproxy/DelayedSaver.hpp"
 #include "jetproxy/JetProxy.hpp"
@@ -38,6 +42,8 @@
 #include "JetObjectProxyWithSubObjectType.hpp"
 #include "JetStaticObjectProxyWithType.hpp"
 #include "CustomDefinedDataTypes.hpp"
+
+#include "objectmodel/ObjectModelConstants.hpp"
 
 // Important: the Order of this file is important
 // 1. Define DataTypes which you would like to use
@@ -51,7 +57,11 @@ int main()
     hbk::sys::EventLoop eventloop;
     hbk::jet::PeerAsync peer(eventloop, hbk::jet::JET_UNIX_DOMAIN_SOCKET_NAME, 0);
 
-    auto m_workerThread = std::thread(std::bind(&hbk::sys::EventLoop::execute, std::ref(eventloop)));
+    auto workerThreadFunction = [&]() {
+        eventloop.execute();
+    };
+
+    auto m_workerThread = std::thread(workerThreadFunction);
     hbk::jetproxy::TypeFactory factory(peer);
     hbk::jetproxy::DelayedSaver delayedSaver(eventloop, peer);
 

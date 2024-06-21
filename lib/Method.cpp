@@ -22,7 +22,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <future>
+#include <string>
+
+#include "json/value.h"
+
+#include "hbk/jsonrpc/jsonrpc_defines.h"
+
 #include "jet/defines.h"
+#include "jet/peerasync.hpp"
+#include "jetproxy/JsonSchema.hpp"
 #include "jetproxy/Method.hpp"
 #include "objectmodel/ObjectModelConstants.hpp"
 
@@ -92,19 +101,19 @@ namespace hbk::jetproxy {
 
     Json::Value Method::arg_to_json(const MethodArg &arg)
     {
-        Json::Value v;
-        v[objectmodel::constants::jsonNameMemberId] = arg.name;
-        v[JsonSchema::DESCRIPTION] = arg.description;
-        v[JsonSchema::TYPE] = arg.type;
-        return v;
+        Json::Value json;
+        json[objectmodel::constants::jsonNameMemberId] = arg.name;
+        json[JsonSchema::DESCRIPTION] = arg.description;
+        json[JsonSchema::TYPE] = arg.type;
+        return json;
     }
 
     Json::Value Method::return_type_to_json(const MethodReturnType& rtype)
     {
-        Json::Value v;
-        v[JsonSchema::DESCRIPTION] = rtype.description;
-        v[JsonSchema::TYPE] = rtype.type;
-        return v;
+        Json::Value json;
+        json[JsonSchema::DESCRIPTION] = rtype.description;
+        json[JsonSchema::TYPE] = rtype.type;
+        return json;
     }
 
     RemoteMethod::RemoteMethod(hbk::jet::PeerAsync &peer, const std::string &path)
@@ -114,10 +123,10 @@ namespace hbk::jetproxy {
 
     std::future<Json::Value> RemoteMethod::operator()(const Json::Value &value)
     {
-        auto cb = [this](const Response &response) {
+        auto callback = [this](const Response &response) {
             method_return.set_value(response);
         };
-        m_jetPeer.callMethodAsync(m_methodPath, value, cb);
+        m_jetPeer.callMethodAsync(m_methodPath, value, callback);
         return method_return.get_future();
     }
 }

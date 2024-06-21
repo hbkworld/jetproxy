@@ -108,8 +108,8 @@ static const char PROXY_ID[] = "aProxy";
 static const char METHOD_WITH_DESCRIPTION_NAME[] = "sumWithDescription";
 static const char METHOD_NAME[] = "sum";
 static const std::string proxyPath = pathPrefix + PROXY_ID;
-static const std::string methodWithDescriptionPath = proxyPath + "/" + METHOD_WITH_DESCRIPTION_NAME;
-static const std::string methodPath = proxyPath + "/" + METHOD_NAME;
+static const std::string methodWithDescriptionPath = proxyPath + '/' + METHOD_WITH_DESCRIPTION_NAME;
+static const std::string methodPath = proxyPath + '/' + METHOD_NAME;
 
 
 

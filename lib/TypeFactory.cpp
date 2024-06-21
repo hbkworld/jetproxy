@@ -22,11 +22,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <cstddef>
 #include <iostream>
 #include <string>
-#include <unordered_map>
 
 #include "jetproxy/TypeFactory.hpp"
+
+#include "objectmodel/ObjectModelConstants.hpp"
 
 
 namespace hbk::jetproxy {

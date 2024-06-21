@@ -22,13 +22,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <cstdio>
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-#include <cctype>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <unistd.h>
+#include <utility>
 
 #include "json/value.h"
 #include "json/writer.h"
+
+#include "jet/peerasync.hpp"
 
 #include "jetproxy/JetProxy.hpp"
 #include "objectmodel/ObjectModelConstants.hpp"
@@ -137,14 +145,14 @@ namespace hbk::jetproxy
     {
         Json::Value composition;
 
-        for (const auto& it : m_referencesByTarget) {
-            for (const auto & element : it.second) {
-                composition[objModel::jsonReferenceByTargetMemberId][it.first].append(element);
+        for (const auto& referencesIter : m_referencesByTarget) {
+            for (const auto & element : referencesIter.second) {
+                composition[objModel::jsonReferenceByTargetMemberId][referencesIter.first].append(element);
             }
         }
-        for (const auto& it : m_referencesBySource) {
-            for (const auto & element : it.second) {
-                composition[objModel::jsonReferenceBySourceMemberId][it.first].append(element);
+        for (const auto& referencesIter : m_referencesBySource) {
+            for (const auto & element : referencesIter.second) {
+                composition[objModel::jsonReferenceBySourceMemberId][referencesIter.first].append(element);
             }
         }
         composition[objectmodel::constants::jsonFixedMemberId] = m_fixed;
@@ -193,7 +201,7 @@ namespace hbk::jetproxy
     int JetProxy::saveAllToFile(const std::string& fileName)
     {
         // we compose to a temporary file and move to the real destination when finished.
-        std::string tmpName = fileName + ".tmp";
+        const std::string tmpName = fileName + ".tmp";
         std::ofstream tmpFile;
         tmpFile.open(tmpName);
         
@@ -233,13 +241,13 @@ namespace hbk::jetproxy
 
     int JetProxy::restoreAllDefaults()
     {
-        for(auto& it : m_jetProxies) {
+        for(auto& proxiesIter : m_jetProxies) {
             try {
-                it.second->restoreDefaults();
+                proxiesIter.second->restoreDefaults();
             } catch(const std::exception& e) {
-                std::cerr << "could not restore defaults for " << it.first << ": " << e.what() << std::endl;
+                std::cerr << "could not restore defaults for " << proxiesIter.first << ": " << e.what() << std::endl;
             } catch(...) {
-                std::cerr << "could not restore defaults for " << it.first << std::endl;
+                std::cerr << "could not restore defaults for " << proxiesIter.first << std::endl;
             }
         }
         return 0;
@@ -280,8 +288,8 @@ namespace hbk::jetproxy
 
         for(Json::Value::iterator it = config.begin(); it !=config.end(); ++it)
         {
-            std::string jetPath = it.key().asString();
-            Json::Value jsonConfig = (*it);
+            const std::string jetPath = it.key().asString();
+            const Json::Value& jsonConfig = (*it);
             const auto& jetIter = m_jetProxies.find(jetPath);
             if (jetIter==m_jetProxies.end()) {
                 std::cout << "could not restore " << jetPath << ": fbproxy does not exist\n";

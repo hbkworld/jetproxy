@@ -312,7 +312,7 @@ namespace hbk::jetproxy {
                     // manipulate the sub object
                     Json::Value requestedValueJson;
                     requestedValueJson[JetProxyExample::JetObjectProxyWithSubObjectType::INT_PROPERTY] = requestedProperties.subObject.intProperty;
-                    callingPeer.setStateValue(jetProxyExample.getPath() + + "/" + JetProxyExample::JetObjectProxyWithSubObjectType::SUB_OBJECT, requestedValueJson);
+                    callingPeer.setStateValue(jetProxyExample.getPath() + '/' + JetProxyExample::JetObjectProxyWithSubObjectType::SUB_OBJECT, requestedValueJson);
                 }
                 eventloop.stop();
                 m_workerThread.join();

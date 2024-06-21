@@ -22,7 +22,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <cstdint>
 #include <stdexcept>
+#include <string>
+#include <utility>
+
+#include "json/value.h"
 
 #include "objectmodel/ObjectModelConstants.hpp"
 

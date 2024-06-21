@@ -22,11 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <iostream>
+#include <cstddef>
+#include <string>
+#include <utility>
 
-#include <syslog.h>
+#include "json/value.h"
 
+#include "jet/peerasync.hpp"
+#include "jetproxy/AnalogVariableHandler.hpp"
+#include "jetproxy/EnumValueHandler.hpp"
 #include "jetproxy/Introspection.hpp"
+#include "jetproxy/SelectionValueHandler.hpp"
+
+#include "objectmodel/ObjectModelConstants.hpp"
 
 namespace hbk::jetproxy
 {
@@ -52,7 +60,7 @@ Introspection::~Introspection()
 void Introspection::insertNodeIntrospection(const std::string& nodeName, const std::string& introspectionPropertyName, const Json::Value& introspectionDetails)
 {
     // if this is the first time we add somthing, we want to have the jet state created
-    bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty() && m_introspectionVariableHandlers.empty();
+    const bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty() && m_introspectionVariableHandlers.empty();
 
     m_entries[nodeName][introspectionPropertyName] = introspectionDetails;
     if (first) {
@@ -75,7 +83,7 @@ size_t Introspection::eraseNodeIntrospection(const std::string& nodeName, const 
 void Introspection::setEnumVariant(const std::string &nodeName, const EnumValueHandler &enumValues)
 {
     // if this is the first time we add somthing, we want to have the jet state created
-    bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty();
+    const bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty();
 
     // existing entry will be replaced
     m_enumValueHandlers.erase(nodeName);
@@ -91,7 +99,7 @@ void Introspection::setEnumVariant(const std::string &nodeName, const EnumValueH
 void Introspection::setSelectionValues(const std::string &nodeName, const SelectionValueHandler &selectionValues)
 {
     // if this is the first time we add somthing, we want to have the jet state created
-    bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty();
+    const bool first = m_enumValueHandlers.empty() && m_entries.empty() && m_selectionValueHandlers.empty();
 
     // existing entry will be replaced
     m_selectionValueHandlers.erase(nodeName);
