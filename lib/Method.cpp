@@ -44,7 +44,7 @@ namespace hbk::jetproxy {
     {
         m_typePath = objModel::methodTypesPath;
         /// \warning path may start with '/' => remove it from prefix
-        if (path[0] == '/') {
+        if (path.front() == '/') {
             m_typePath.pop_back();
         }
         m_typePath += path;
